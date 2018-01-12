@@ -2,6 +2,9 @@ module Instagram
   module Response
     def self.create( response_hash, ratelimit_hash )
       data = response_hash.data.dup rescue response_hash
+      data ||= response_hash
+      return data if data.nil?
+
       data.extend( self )
       data.instance_exec do
         %w{pagination meta}.each do |k|
